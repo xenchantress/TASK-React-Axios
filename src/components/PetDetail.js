@@ -1,6 +1,8 @@
 import React from "react";
 import petsData from "../petsData";
+import { useParams } from "react-router-dom";
 const PetDetail = () => {
+  const { id } = useParams();
   const pet = petsData[0];
   return (
     <div className="bg-[#F9E3BE] w-screen h-[100vh] flex justify-center items-center">
