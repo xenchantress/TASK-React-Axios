@@ -1,13 +1,36 @@
 import React, { useState } from "react";
 import Input from "./Input";
+import { addNewPet } from './api/pets';
+
 
 const Modal = ({ show, setShowModal }) => {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [image, setImage] = useState("");
-  const [available, setAvailable] = useState(0);
+  const [setAvailable] = useState(0);
+
+
+  const handleAddPet = async () => {
+    try {
+      const newPetData ={
+        name,
+        type,
+        image,
+      };
+      
+      await addNewPet(newPetData);
+      setShowModal(false);
+    } catch (error) {
+
+    }
+  };
+
+
   if (!show) return "";
+
   return (
+    <div>
+     <button onClick={handleAddPet}>Add Pet</button>
     <div
       className="inset-0 fixed  flex justify-center items-center flex-col z-20 overflow-hidden 
   "
@@ -51,6 +74,7 @@ const Modal = ({ show, setShowModal }) => {
           Submit
         </button>
       </div>
+    </div>
     </div>
   );
 };

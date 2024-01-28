@@ -1,15 +1,25 @@
-import React, { useState, useSyncExternalStore } from "react";
+import React, { useState } from "react";
 import petsData from "../petsData";
 import PetItem from "./PetItem";
 import Modal from "./Modal";
+import { useQuery } from '@tanstack/react-query';
+import { getAllPets } from './api/pets';
 
-const PetList = () => {
+function PetList() {
+  const { data:  isLoading } = useQuery('pets', getAllPets);
+
   const [query, setQuery] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   const petList = petsData
     .filter((pet) => pet.name.toLowerCase().includes(query.toLowerCase()))
     .map((pet) => <PetItem pet={pet} key={pet.id} />);
+
+
+    if (isLoading) {
+      return <div className="text-center">Loading...</div>;
+    }
+
   return (
     <>
       <div className="bg-[#F9E3BE] flex flex-col justify-center items-center ">
